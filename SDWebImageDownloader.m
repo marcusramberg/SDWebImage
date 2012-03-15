@@ -109,6 +109,13 @@ NSString *const SDWebImageDownloadStopNotification = @"SDWebImageDownloadStopNot
     [imageData appendData:data];
 }
 
+-  (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)response
+{
+  if([response.MIMEType isEqualToString: @"text/html"]) {
+    [aConnection cancel];
+  }
+}
+
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConnection
 {
@@ -128,6 +135,7 @@ NSString *const SDWebImageDownloadStopNotification = @"SDWebImageDownloadStopNot
     }
 }
 
+
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:SDWebImageDownloadStopNotification object:nil];
@@ -145,7 +153,7 @@ NSString *const SDWebImageDownloadStopNotification = @"SDWebImageDownloadStopNot
 
 - (void)imageDecoder:(SDWebImageDecoder *)decoder didFinishDecodingImage:(UIImage *)image userInfo:(NSDictionary *)userInfo
 {
-    [delegate performSelector:@selector(imageDownloader:didFinishWithImage:) withObject:self withObject:image];
+  [delegate performSelector:@selector(imageDownloader:didFinishWithImage:) withObject:self withObject:image];
 }
 
 #pragma mark NSObject
