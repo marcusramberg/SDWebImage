@@ -217,12 +217,7 @@ NSString *const SDWebImageDownloadStopNotification = @"SDWebImageDownloadStopNot
     }
 }
 
--  (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)response
-{
-  if([response.MIMEType isEqualToString: @"text/html"]) {
-    [aConnection cancel];
-  }
-}
+
 
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConnection
